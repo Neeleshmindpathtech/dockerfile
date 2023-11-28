@@ -10,7 +10,7 @@ pipeline {
     stage('Scan') {
     	agent any
       steps {
-      	sh 'trivy neelesh/docker:latest'
+      	sh 'trivy image neelesh/docker'
       }
     }
   }
