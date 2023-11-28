@@ -4,7 +4,7 @@ pipeline {
     stage('Docker Build') {
     	agent any
       steps {
-      	sh 'docker build -t neelesh1/docker .'
+      	sh 'docker build -t task .'
       }
     }
     stage('Scan') {
@@ -29,6 +29,6 @@ pipeline {
             // Scan again and fail on CRITICAL vulns
             sh 'trivy task --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL ./task'
 
-        }
+  }
   }
 }
