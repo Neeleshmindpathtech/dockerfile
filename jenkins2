@@ -1,1 +1,56 @@
 
+pipeline {
+  agent any
+  stages {
+    stage('Docker Build') {
+    	agent any
+      steps {
+      	sh 'docker build -t ram1 .'
+      }
+    }
+        stage('Scan') {
+            steps {
+
+                // Scan all vuln levels
+                sh 'mkdir -p reports'
+                sh 'pipeline {
+  agent any
+  stages {
+    stage('Docker Build') {
+    	agent any
+      steps {
+      	sh 'docker build -t ram1 .'
+      }
+    }
+        stage('Scan') {
+            steps {
+
+                // Scan all vuln levels
+                sh 'mkdir -p reports'
+                sh 'trivy image --format template --template @./html.tpl -o report.html ram'
+                publishHTML target : [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'ram1.html',
+                    reportName: 'Trivy Scan',
+                    reportTitles: 'Trivy Scan'
+                ]
+            }
+           }
+  }
+}'
+                publishHTML target : [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'ram1.html',
+                    reportName: 'Trivy Scan',
+                    reportTitles: 'Trivy Scan'
+                ]
+            }
+           }
+  }
+}
