@@ -1,17 +1,17 @@
 pipeline {
-  agent any
-  stages {
-    stage('Docker Build') {
-    	agent any
-      steps {
-      	sh 'docker build -t neelesh1/docker .'
-      }
+    agent any
+
+    stages {
+        stage('build') {
+            steps {
+                sh 'docker build -t ram-ram .'
+            }
+        }
+        
+        stage('T-scan') {
+            steps {
+                sh 'sudo trivy image --format template --template "@/usr/share/trivy/templates/html.tpl" -o report.html ram-ram'
+            }
+        }
     }
-    stage('Scan') {
-    	agent any
-      steps {
-      	sh 'trivy image neelesh1/docker'
-      }
-    }
-  }
 }
