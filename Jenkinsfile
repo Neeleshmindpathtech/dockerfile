@@ -17,8 +17,8 @@ pipeline {
                     keepAll: true,
                     reportDir: '.',
                     reportFiles: 'ram6.html',
-                    reportName: 'Trivy Scan',
-                    reportTitles: 'Trivy Scan'
+                    reportName: 'Trivy.html',
+                    reportTitles: 'Trivy.html'
                 ]
             }
         }
