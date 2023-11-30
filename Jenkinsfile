@@ -4,13 +4,22 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'docker build -t ram-ram .'
+                sh 'docker build -t ram6 .'
             }
         }
         
-        stage('T-scan') {
+        stage('Trivyscan') {
             steps {
-                sh 'sudo trivy image --format template --template "@/usr/share/trivy/templates/html.tpl" -o report.html ram-ram'
+                sh 'sudo trivy image --format template --template @/usr/local/share/trivy/templates/html.tpl -o ram6.html ram6'
+                publishHTML target : [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'ram6.html',
+                    reportName: 'Trivy Scan',
+                    reportTitles: 'Trivy Scan'
+                ]
             }
         }
     }
