@@ -11,6 +11,15 @@ pipeline {
         stage('T-scan') {
             steps {
                 sh 'trivy image --template @./html.tpl -o rep.html ram-ram1'
+                publishHTML target : [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'ram-ram1.html',
+                    reportName: 'Trivy.html',
+                    reportTitles: 'Trivy Scan'
+                ]
             }
         }
     }
