@@ -12,7 +12,7 @@ pipeline {
 
                 // Scan all vuln levels
                 sh 'mkdir -p reports'
-                sh 'trivy image --scanners vuln --format template --template @./html.tpl -o report.html ram3'
+                sh 'trivy image --scanners vuln --format template --template "@reports/html.tpl" -o report.html ram3'
             }
            }
   }
