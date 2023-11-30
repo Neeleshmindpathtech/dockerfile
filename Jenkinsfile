@@ -10,7 +10,7 @@ pipeline {
         
         stage('Trivyscan') {
             steps {
-                sh 'sudo trivy image --format template --template @/usr/local/share/trivy/templates/html.tpl -o ram6.html ram6'
+                sh 'echo "Neelesh@1234" |sudo trivy image --format template --template @/usr/local/share/trivy/templates/html.tpl -o ram6.html ram6'
                 publishHTML target : [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
