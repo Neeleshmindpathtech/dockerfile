@@ -11,7 +11,7 @@ pipeline {
             steps {
 
                 // Scan all vuln levels
-                sh 'trivy image --format template --template @./html.tpl -o report.html ram2'
+                sh 'trivy image --scanners vuln --format template --template @./html.tpl -o report.html ram2'
             }
            }
   }
