@@ -4,15 +4,14 @@ pipeline {
     stage('Docker Build') {
     	agent any
       steps {
-      	sh 'docker build -t ram1 .'
+      	sh 'docker build -t ram2 .'
       }
     }
         stage('Scan') {
             steps {
 
                 // Scan all vuln levels
-                sh 'mkdir -p reports'
-                sh 'trivy image --format template --template @./html.tpl -o report.html ram'
+                sh 'trivy image --format template --template @./html.tpl -o report.html ram2'
             }
            }
   }
