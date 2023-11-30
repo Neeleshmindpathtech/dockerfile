@@ -9,10 +9,7 @@ pipeline {
     }
         stage('Scan') {
             steps {
-
-                // Scan all vuln levels
-                sh 'mkdir -p reports'
-                sh 'trivy image --format template --template "@/usr/share/trivy/templates/html.tpl" -o report.html ram4'
+                sh 'sudo trivy image --format template --template "@/usr/share/trivy/templates/html.tpl" -o report.html ram4'
             }
            }
   }
