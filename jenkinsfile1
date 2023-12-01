@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push neelesh_first'
+        sh 'docker push neeleshvv22/neelesh/neelesh_first'
       }
     }
   }
