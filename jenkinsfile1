@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t neelesh_first .'
+        sh 'docker build -t neelesh .'
       }
     }
     stage('Login') {
@@ -19,7 +19,8 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push neeleshvv22/neelesh/neelesh_first'
+        sh 'docker tag neelesh:latest neeleshvv22/neelesh:latest'
+        sh 'docker push neeleshvv22/neelesh:latest'
       }
     }
   }
