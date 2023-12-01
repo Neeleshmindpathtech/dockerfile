@@ -1,26 +1,31 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('build') {
-            steps {
-                sh 'docker build -t ram-ram1 .'
-            }
-        }
-        
-        stage('T-scan') {
-            steps {
-                sh 'trivy image --template @./html.tpl -o rep.html ram-ram1'
-                publishHTML target : [
-                    allowMissing: true,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: '.',
-                    reportFiles: 'ram-ram1.html',
-                    reportName: 'Trivy.html',
-                    reportTitles: 'Trivy Scan'
-                ]
-            }
-        }
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'docker build -t neelesh_first .'
+      }
     }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'docker push neelesh_first'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker logout'
+    }
+  }
 }
